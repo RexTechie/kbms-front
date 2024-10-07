@@ -1,0 +1,74 @@
+.page {
+  background-image: url('../assets/login/bg.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+}
+.container {
+  height: inherit;
+}
+.panel {
+  width: 100%;
+  min-width: 800px;
+  height: 80%;
+  max-height: 80%;
+  background-color: rgba(22, 62, 100, 0.5);
+  border-radius: 10px;
+  padding: 50px 60px;
+}
+.panel .left {
+  box-sizing: border-box;
+}
+.panel .left .logo {
+  display: block;
+  width: 80%;
+  margin-bottom: 35px;
+}
+.panel .left .big {
+  display: block;
+  width: 75%;
+  height: auto;
+}
+.panel .right .title-container {
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+.panel .right .title-container h2 {
+  font-size: 30px;
+  color: #ffffff;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin: 0 auto 0;
+}
+.panel .right .title-container span {
+  font-size: 16px;
+  margin-top: 12px;
+  margin-left: 10px;
+  color: #999;
+}
+.panel .right .row {
+  margin-bottom: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+}
+.panel .right .row .col {
+  margin-right: 20px;
+}
+.panel .right .btn {
+  width: 100%;
+}
+.panel .right .link {
+  font-size: 14px;
+  color: #999;
+  cursor: pointer;
+  user-select: none;
+}
+.panel .right .qrCode-container {
+  display: flex;
+  margin-bottom: 30px;
+}
+.panel .right .qrCode-container .ercode {
+  margin-right: 0;
+}
