@@ -43,7 +43,10 @@
           </div>
         </el-col>
         <el-col :span="11" class="right">
-          <img src="../assets/home/banner.png" class="banner" alt=""/></el-col>
+          <!--<img src="../assets/home/banner.png" class="banner" alt=""/>-->
+          <div ref="chart" style="width: 600px; height: 400px;"></div>
+          
+        </el-col>
       </el-row>
     </el-row>
     <search-result
@@ -67,7 +70,35 @@ export default{
       }
     }
   },
+  mounted() {
+    this.initChart();
+  },
   methods: {
+    initChart() {
+      // 绑定 DOM 元素
+      this.chart = this.$echarts.init(this.$refs.chart);
+
+      // 设置配置项和数据
+      const option = {
+        title: {
+          text: 'ECharts 示例',
+        },
+        tooltip: {},
+        xAxis: {
+          data: ['苹果', '橙子', '香蕉', '葡萄', '菠萝'],
+        },
+        yAxis: {},
+        series: [
+          {
+            type: 'bar',
+            data: [5, 20, 36, 10, 10],
+          },
+        ],
+      };
+
+      // 渲染图表
+      this.chart.setOption(option);
+    },
     onSubmit(type) {
       this.searchResultVisible = true
       //加载用户数据

@@ -17,12 +17,6 @@ const app = createApp(App) //创建VUE对象
 import router from './router'
 app.use(router) //挂载路由插件
 
-//使用WebSocket，后端项目给前端页面推送通知更
-// import VueNativeSock from "vue-native-websocket-vue3";
-// app.use(VueNativeSock,"ws://localhost:8090/emos-api/socket",{
-//     "format": "json"
-// });
-
 //导入Cookie库，可以读写Cookie数据
 import VueCookies from 'vue3-cookies'
 app.use(VueCookies); //挂载Cookie插件
@@ -42,44 +36,6 @@ app.use(ElementPlus, {
 	locale
 })
 
-//配置JS生成PDF的公共函数
-import html2Canvas from 'html2canvas'
-import JsPDF from 'jspdf'
-app.config.globalProperties.getPdf = function () {
-	var title = this.htmlTitle //PDF标题
-	html2Canvas(document.querySelector('#pdfDom'), {
-		allowTaint: true,
-		taintTest: false,
-		useCORS: true,
-		//width:960,
-		//height:5072,
-		dpi: window.devicePixelRatio * 4, //将分辨率提高到特定的DPI 提高四倍
-		scale: 4 //按比例增加分辨率
-	}).then(function (canvas) {
-		let contentWidth = canvas.width
-		let contentHeight = canvas.height
-		let pageHeight = contentWidth / 592.28 * 841.89
-		let leftHeight = contentHeight
-		let position = 0
-		let imgWidth = 595.28
-		let imgHeight = 592.28 / contentWidth * contentHeight
-		let pageData = canvas.toDataURL('image/jpeg', 1.0)
-		let PDF = new JsPDF('', 'pt', 'a4')
-		if (leftHeight < pageHeight) {
-			PDF.addImage(pageData, 'JPEG', 0, 0, imgWidth, imgHeight)
-		} else {
-			while (leftHeight > 0) {
-				PDF.addImage(pageData, 'JPEG', 0, position, imgWidth, imgHeight)
-				leftHeight -= pageHeight
-				position -= 841.89
-				if (leftHeight > 0) {
-					PDF.addPage()
-				}
-			}
-		}
-		PDF.save(title + '.pdf')
-	})
-}
 
 //导入echarts库
 import * as echarts from 'echarts'
