@@ -40,9 +40,6 @@
                   {{item.title.substr(0, 15) + "..."}}
               </span>
           </div>
-          <div class="item_tag">
-            <span>{{ item.tag }}</span>
-          </div>
           <div class="item_description">
               简介：
               <span v-if="item.description&& item.description.length > 15">                

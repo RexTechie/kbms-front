@@ -47,7 +47,6 @@
 import "element-plus/lib/theme-chalk/display.css";
 import { ElMessage } from "element-plus";
 import router from "../router/index.js";
-import { isUsername, isPassword } from "../utils/validate.js";
 export default {
   data: function () {
     return {

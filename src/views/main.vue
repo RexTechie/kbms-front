@@ -85,19 +85,9 @@
               <SvgIcon name="user_fill" class="icon-svg" />
               <span>用户管理</span>
             </el-menu-item>
-          <el-menu-item 
-            index="tag"
-            @click="$router.push({ name: 'Tag' })">
-            <SvgIcon name="tag" class="icon-svg" />
-            <span>标签管理</span>
-          </el-menu-item>
           <el-menu-item index="proj" @click="$router.push({ name: 'Proj' })">
             <SvgIcon name="proj" class="icon-svg" />
             <span>项目管理</span>
-          </el-menu-item>
-          <el-menu-item index="chat" @click="$router.push({ name: 'Chat' })">
-            <SvgIcon name="chat" class="icon-svg" />
-            <span>文档机器人</span>
           </el-menu-item>
         </el-menu>
       </div>

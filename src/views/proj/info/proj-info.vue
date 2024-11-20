@@ -43,13 +43,6 @@
         </el-col>
       </el-row>
       <el-row>
-        <el-col class="title" :span="6"><span>项目标签</span></el-col>
-        <el-col class="content" :span="12"><span style="color: rgb(158, 155, 240);">{{ dataForm.tag}}</span></el-col>
-        <el-col class="operation" :span="6">
-          <el-button size="small" @click="dialogVisible.tag = true;">编辑</el-button>
-        </el-col>
-      </el-row>
-      <el-row>
         <el-col class="title" :span="6"><span>简介</span></el-col>
         <el-col class="content" :span="12"><span>{{ dataForm.description}}</span></el-col>
         <el-col class="operation" :span="6">
@@ -101,33 +94,6 @@
       <div class="dialog-footer">
         <el-button @click="dialogVisible.title = false">取消</el-button>
         <el-button type="primary" @click="editTitleHandler">
-          保存
-        </el-button>
-      </div>
-    </template>
-    </el-dialog>
-    <!--标签编辑-->
-    <el-dialog 
-      v-model="dialogVisible.tag" 
-      title="选择标签"
-      width="30%"
-      show-close
-    >
-      <el-cascader
-          v-model="editData.tagId"
-          :options="tagList"
-          :props="tagProps"
-          :show-all-levels="false"
-          class="input"
-          placeholder="标签"
-          size='large'
-          clearable="clearable"
-        >
-      </el-cascader>
-      <template #footer>
-      <div class="dialog-footer">
-        <el-button @click="dialogVisible.tag = false">取消</el-button>
-        <el-button type="primary" @click="editTagHandle">
           保存
         </el-button>
       </div>
@@ -191,7 +157,6 @@ export default{
       baseUrl: requestConfig.baseUrl,
       editData: {
         title: "",
-        tagId: "",
         description: "",
         status: null,
       },
@@ -211,16 +176,9 @@ export default{
         value: 5,
         label: "已取消"
       }],
-      tagProps: {
-        "value": "id",
-        "label": "name",
-        checkStrictly: true
-      },
-      tagList: [],
       dialogVisible: {
         title: false,
         img: false,
-        tag: false,
         description: false,
         status: false
       },
@@ -270,7 +228,6 @@ export default{
           if (resp.code === 200) {
             that.dataForm = resp.data
             that.editData.title = that.dataForm.title;
-            that.editData.tagId = that.dataForm.tagId;
             that.editData.description = that.dataForm.description;
             that.editData.status = that.dataForm.status;
             console.log(that.dataForm)
@@ -283,28 +240,6 @@ export default{
           }
         }
       )
-    },
-    /**
-     * 加载标签列表
-     */
-    loadTagList(){
-      let that = this;
-      //请求后端数据的时候，让表格出现循环滚动的等待图标
-      that.dataListLoading = true;
-      let data = {
-      };
-      that.$http("/tags", "GET", data, true, function (resp) {
-        if (resp.code === 200) {
-          that.tagList = resp.data;
-          that.dataListLoading = false;
-        } else {
-          that.$message({
-            message: resp.msg,
-            type: "error",
-            duration: 1200,
-          });
-        }
-      });
     },
     dataFormSubmit(data){
       let that = this;
@@ -365,25 +300,6 @@ export default{
       this.dialogVisible.description = false
     },
     /** 
-     * 类型编辑处理
-     */
-    editTagHandle(){
-      let tagId = this.editData.tagId;
-      if(typeof(tagId) != "string" ){
-        let tagIdArrLen = this.editData.tagId.length
-        this.editData.tagId = this.editData.tagId[tagIdArrLen-1]
-      }else{
-        this.editData.tagId = tagId
-      }
-      this.dataForm.tagId = this.editData.tagId
-      // 后端
-      this.dataFormSubmit({
-        id: this.dataForm.id,
-        tagId: this.editData.tagId
-      })        
-      this.dialogVisible.tag = false
-    },
-    /** 
      * 标题编辑处理
      */
     editTitleHandler(){
@@ -405,10 +321,6 @@ export default{
         img: this.dataForm.img
       })   
     }
-  },
-  created(){
-
-    this.loadTagList();
   },
   mounted() {
     let id = this.$route.params.id

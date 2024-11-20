@@ -1,50 +1,27 @@
-import {
-	createApp
-} from 'vue'
-
+import { createApp } from 'vue'
 import App from './App.vue'
-
-//导入Svg图片插件，可以在页面上显示Svg图片
-import 'vite-plugin-svg-icons/register';
-
-//导入JQuery库，因为Ajax用起来非常方便，支持同步和异步的Ajax请求
-import $ from 'jquery';
-
+import 'vite-plugin-svg-icons/register' // 导入Svg图片插件，可以在页面上显示Svg图片
+import $ from 'jquery'; // 导入JQuery库，因为Ajax用起来非常方便，支持同步和异步的Ajax请求
+import VueCookies from 'vue3-cookies' //导入Cookie库，可以读写Cookie数据
+import * as echarts from 'echarts'
+import router from './router'
+// element相关
+import ElementPlus from 'element-plus'
+import 'element-plus/lib/theme-chalk/index.css'
+import locale from 'element-plus/lib/locale/lang/zh-CN'
+import { ElMessage } from 'element-plus' //导入ElementUI的消息通知组件，下面封装全局Ajax的时候处理异常的时候需要弹出通知
+// 配置文件
+import RequestConfig from "./config/requestConfig";
 
 const app = createApp(App) //创建VUE对象
 
-//导入路由配置
-import router from './router'
 app.use(router) //挂载路由插件
+app.use(VueCookies) //挂载Cookie插件
+app.use(ElementPlus, {locale}) //挂载ElementUl-Plus插件
 
-//导入Cookie库，可以读写Cookie数据
-import VueCookies from 'vue3-cookies'
-app.use(VueCookies); //挂载Cookie插件
-
-//导入ElementUI
-import ElementPlus from 'element-plus';
-import 'element-plus/lib/theme-chalk/index.css';
-import locale from 'element-plus/lib/locale/lang/zh-CN'
-
-//导入ElementUI的消息通知组件，下面封装全局Ajax的时候处理异常的时候需要弹出通知
-import {
-	ElMessage
-} from 'element-plus'
-
-//挂载ElementUl-Plus插件
-app.use(ElementPlus, {
-	locale
-})
-
-
-//导入echarts库
-import * as echarts from 'echarts'
 app.config.globalProperties.$echarts = echarts //设置全局变量$echarts
-import RequestConfig from "./config/requestConfig";
-
 app.config.globalProperties.$baseUrl = RequestConfig.baseUrl //设置全局变量$baseUrl
-
-//封装全局Ajax公共函数
+//用jquery封装全局Ajax公共函数
 app.config.globalProperties.$http = function (url, method, data, async, fun) {
 	let token = localStorage.getItem("token");
 	$.ajax({
@@ -79,7 +56,6 @@ app.config.globalProperties.$http = function (url, method, data, async, fun) {
 		}
 	})
 }
-
 //封装用于判断用户是否具有某些权限的公共函数
 app.config.globalProperties.isAuth = function (roles) {
 	let myRole = localStorage.getItem("role");

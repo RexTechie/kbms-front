@@ -7,7 +7,6 @@ import Login from '../views/login.vue'
 import Main from "../views/main.vue"
 import Home from "../views/home.vue"
 import User from "../views/user/user.vue"
-import Tag from "../views/tag/tag.vue"
 import Proj from '../views/proj/proj.vue'
 import ProjDetail from '../views/proj/proj-detail.vue'
 import ProjInfo from '../views/proj/info/proj-info.vue'
@@ -16,7 +15,6 @@ import ProjDoc from '../views/proj/doc/proj-doc.vue'
 import ProjDocDetail from '../views/proj/doc/proj-doc-detail.vue'
 import ProjDocAddOrUpdate from '../views/proj/doc/proj-doc-add-or-update.vue'
 import ProjFile from '../views/proj/file/proj-file.vue'
-import Chat from '../views/chat/chat.vue'
 import NotFound from "../views/404.vue"
 
 
@@ -38,14 +36,6 @@ const routes = [{
 				meta: {
 					title: '用户管理',
 					isTab: true
-				}
-			}, {
-				path: 'tag',
-				name: 'Tag',
-				component: Tag,
-				meta: {
-					title: '标签管理',
-					isTab: "true"
 				}
 			},{
 				path: 'proj',
@@ -109,14 +99,6 @@ const routes = [{
 						}
 					}
 				]
-			}, {
-				path: 'chat',
-				name: 'Chat',
-				component: Chat,
-				meta: {
-					title: '文档机器人',
-					isTab: "true"
-				}
 			}
 		]
 	},{
